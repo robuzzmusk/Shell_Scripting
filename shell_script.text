@@ -140,3 +140,95 @@ fi
 # Print number of arguments passed
 echo "Number of arguments: $#"
 ####################################
+bash script.sh > /tmp/error1
+bash script.sh > /tmp/error1 2>&1
+####################################
+#if you execute command 3-4 times the output get 3-4 times as output
+bash script.sh >> /tmp/error1 2>&1 
+
+cd /tmp/
+ls
+cat error1
+
+####################################
+#odd number
+for i in {1..100}; do
+  if [ $((i % 2)) -ne 0 ]; then
+  echo "$i is an odd number"
+  fi
+done  
+
+#even number
+for i in {1..100}; do
+  if [ $((i % 2)) -eq 0 ]; then
+  echo "$i is an even number"
+  fi
+done  
+####################################
+#even & odd number
+#!/bin/bash
+for i in {1..100}; do
+  if [ $((i % 2)) -eq 0 ]; then
+      echo "$i is even number"
+  else
+      echo "$i is an odd number"
+    fi
+done
+####################################
+#while loop
+while true; 
+do curl https://www.google.com | grep -i google; 
+sleep 1; done
+
+while true; 
+do curl https://www.google.com | grep -i google; 
+sleep 1; done
+
+####################################
+#User Automation
+#!/bin/bash
+if [ $# -gt 0 ]; then 
+   USER=$1
+   echo $USER
+else
+   echo "Please Enter the valid question"
+fi
+#bash script.sh ubuntu
+####################################
+
+cat /etc/passwd | grep -i ubuntu #for multiple ubuntu numbers
+
+cat /etc/passwd | grep -i -w ubuntu  #for only single ubuntu word
+
+ubuntu:x:1000:1000:Ubuntu:/home/ubuntu:/bin/bash
+#------fields are ubuntu 1000 , :=delimiters   -----
+
+cat /etc/passwd | grep -i -w ubuntu | cut -d ":" -f1 #field1 argument
+####################################
+#!/bin/bash
+if [ $# -gt 0 ]; then 
+   USER=$1
+   echo $USER
+   EXISTING_USER=$(cat /etc/passwd | grep -i -w $USER | cut -d ":" -f1)
+   if [ "${USER}" = "${EXISTING_USER}" ]; then   
+       echo "The $USER you have enterred is present"
+   else
+       echo "Please Enter the Valid parameter"
+   fi
+fi
+####################################
+#!/bin/bash
+if [ $# -gt 0 ]; then 
+   USER=$1
+   echo $USER
+   EXISTING_USER=$(cat /etc/passwd | grep -i -w $USER | cut -d ":" -f1)
+   if [ "${USER}" = "${EXISTING_USER}" ]; then   
+       echo "The $USER you have enterred is present"
+   else
+       echo "lETS CREATE A NEW $USER"
+       sudo useradd -m $USER --shell /bin/bash
+   fi
+else   
+   echo "Please Enter the valid parameter"
+fi
+####################################
