@@ -54,6 +54,33 @@ aws s3 ls | awk -F " " '{print $1}'
 
 aws s3 ls | awk -F " " '{print $1,$2}'
 
+aws s3 ls | awk -F " " '{print $3,$2,$1}'
+
+#in logs want only specific word so use(GREP)
+#The -i option tells grep to perform a case-insensitive search. This means that it will match patterns regardless of whether the letters are in uppercase or lowercase
+aws s3 ls | cut -d ' ' -f 3 | grep -i www.
+
+#(E GREP)  avoid the . , + -
+#The -E option enables extended regular expressions (ERE) in grep. This allows you to use more advanced pattern matching features that aren't available with basic regular expressions (BRE). In other words, it expands the set of features available in regular expressions, such as supporting more complex syntax like +, ?, {}, and | for alternation.
+
+aws s3 ls | cut -d ' ' -f 3 | grep -E www[-]
+
+
+aws s3 ls | cut -d ' ' -f 3 | grep -E www[.]
+echo 'welcome the world'
+#########################
+aws ec2 describe-vpcs --region us-east-1 | jq
+
+aws ec2 describe-vpcs --region us-east-1 | jq ".Vpcs[]"
+
+aws ec2 describe-vpcs --region us-east-1 | jq ".Vpcs[].VpcId"
+
+#remove double quotes
+aws ec2 describe-vpcs --region us-east-1 | jq ".Vpcs[].VpcId" -r
+
+aws ec2 describe-vpcs --region us-east-1 | jq ".Vpcs[].VpcId" | tr -d '"'
+
+aws ec2 describe-vpcs --region us-east-1 | jq ".Vpcs[].VpcId" | tr -d '"' | tr '[:lower:]' '[:upper:]'
 
 #Passing Parameters
 REGION='us-east-1'
